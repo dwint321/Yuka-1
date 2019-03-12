@@ -69,3 +69,6 @@ Optional:
 * Favorites  -> Detailed screen (-> to reviews if optional)
 * Profile -> Searches (from Recent Searches) 
 
+## Wireframes
+<img src="YukaWireframe.jpeg" width=600>
+
