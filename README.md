@@ -165,39 +165,38 @@ Optional:
       });
       ```
   
-      - (Create/LOCATION) Create a new favorite on search
+   - (Create/LOCATION) Create a new favorite on search
       ```java
       public void addFavorite(Context context, FavList fav){
-    List<FavList> favorites = getFavorites(context);
-
-    if(favorites == null)
-        favorites = new ArrayList<FavList>();
-        favorites.add(fav);
-        saveFavorites(context,favorites);
-          }
-          ```
+      List<FavList> favorites = getFavorites(context);
+      if(favorites == null)
+      favorites = new ArrayList<FavList>();
+      favorites.add(fav);
+      saveFavorites(context,favorites);
+      }
+      ```
       
-      - (Delete) Delete existing favorite
-        ```java
-        public void done(final List<ParseObject> scoreList, ParseException e) {
-        if (e != null) {
-        // There was an error or the network wasn't available.
+    - (Delete) Delete existing favorite
+      ```java
+      public void done(final List<ParseObject> scoreList, ParseException e) {
+      if (e != null) {
+      // There was an error or the network wasn't available.
+      return;
+      }
+      // Release any objects previously pinned for this query.
+      ParseObject.unpinAllInBackground(TOP_SCORES_LABEL, scoreList, new DeleteCallback() {
+      public void done(ParseException e) {
+      if (e != null) {
+        // There was some error.
         return;
-        }
-        // Release any objects previously pinned for this query.
-        ParseObject.unpinAllInBackground(TOP_SCORES_LABEL, scoreList, new DeleteCallback() {
-        public void done(ParseException e) {
-        if (e != null) {
-          // There was some error.
-          return;
-        }
-        // Add the latest results for this query to the cache.
-        ParseObject.pinAllInBackground(TOP_SCORES_LABEL, scoreList);
-        }
-        });
-        }
-        });
-        ```
+      }
+      // Add the latest results for this query to the cache.
+      ParseObject.pinAllInBackground(TOP_SCORES_LABEL, scoreList);
+      }
+      });
+      }
+      });
+      ```
    - Favorites Screen
       - (Read/GET) LocationName and location Icon
       ```java
@@ -213,8 +212,7 @@ Optional:
       });
       ```
       
-      - (Delete) Delete existing favorite
-      
+     - (Delete) Delete existing favorite   
       ```java 
       public void done(final List<ParseObject> scoreList, ParseException e) {
       if (e != null) {
