@@ -108,10 +108,38 @@ Optional:
 #### List of network requests by screen
    - Search/Feed Screen
       - (Read/GET) Query set of random locations
+        ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("PlaceObject");
+        query.whereNear("location", userLocation);
+        query.setLimit(10);
+        query.findInBackground(new FindCallback<ParseObject>() { ... });
+  
       - (Create/LOCATION) Create a new favorite on search
+      ParseGeoPoint point = new ParseGeoPoint(0.5, 0.5);
+      ParseQuery<ParseObject> query = ParseQuery.getQuery("PlaceObject");
+      query.wherePolygonContains("location", point);
+
       - (Delete) Delete existing favorite
+      // After this, the favoriteName field will be empty
+      myObject.remove("favoriteName");
+      
       - (Create/LOCATION) Create new search
+      ParseQuery<ParseObject> query = ParseQuery.getQuery("Location");
+      query.whereFullText("name", "Tallahassee");
+
       - (Update/PUT) Update search through filter
+      ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
+      query.whereEqualTo("playerEmail", "dstemkoski@example.com");
+      query.getFirstInBackground(new GetCallback<ParseObject>() {
+        public void done(ParseObject object, ParseException e) {
+          if (object == null) {
+            Log.d("score", "The getFirst request failed.");
+          } else {
+            Log.d("score", "Retrieved the object.");
+          }
+        }
+      });
+
    - Detailed View Screen
       - (Read/GET) Query all known information on Location
       - (Create/LOCATION) Create a new favorite on search
