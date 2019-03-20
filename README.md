@@ -226,5 +226,9 @@ Optional:
        ```
    - Profile Screen
       - (Read/GET) Query logged in user object
+          public String getUsername(){
+        return this.USERNAME;
+        }
+
    - Recent Searches Screen 
       - (Read/GET) keyword, filters, and date and time
