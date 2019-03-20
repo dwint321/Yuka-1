@@ -72,3 +72,54 @@ Optional:
 ## Wireframes
 <img src="YukaWireframe.jpeg" width=600>
 
+## Schema 
+### Models
+#### Location
+
+| Property      | Type     | Description |
+| ------------- | -------- | ------------|
+| objectId      | String   | unique id for the user post (default field) |
+| favorites     | boolean  | Whether you like the location or not |
+| description   | String   | Description of location |
+| activities    | String   | Activities to do at location |
+| peakSeason    | JSONObject| Peak seasons where location is most popular|
+| price         | float    | Price of trip to location|
+| LocationBanner | File     | image of location for detail view |
+| LocationIcon  | File     | image of location for thumbnail view |
+| LocationName  | String   | Name of location |
+
+#### Search
+
+| Property      | Type     | Description |
+| ------------- | -------- | ------------|
+| objectId      | String   | unique id for the user post (default field) |
+| favorites     | boolean  | Whether you like the location or not |
+| keyWord       | String   | Word(s) that the user typed in to make search |
+| filter        | boolean  | Whatever is used to specify the search or deter the search from using it's default settings |
+| createdAt     | DateTime | date when post is created (default field) |
+
+#### Profile
+
+| Property      | Type     | Description |
+| ------------- | -------- | ------------|
+| userName      | Pointer to User| Name of user to display on profile |
+
+### Networking
+#### List of network requests by screen
+   - Search/Feed Screen
+      - (Read/GET) Query set of random locations
+      - (Create/LOCATION) Create a new favorite on search
+      - (Delete) Delete existing favorite
+      - (Create/LOCATION) Create new search
+      - (Update/PUT) Update search through filter
+   - Detailed View Screen
+      - (Read/GET) Query all known information on Location
+      - (Create/LOCATION) Create a new favorite on search
+      - (Delete) Delete existing favorite
+   - Favorites Screen
+      - (Read/GET) LocationName and location Icon
+      - (Delete) Delete existing favorite
+   - Profile Screen
+      - (Read/GET) Query logged in user object
+   - Recent Searches Screen 
+      - (Read/GET) keyword, filters, and date and time
