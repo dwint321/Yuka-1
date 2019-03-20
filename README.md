@@ -108,27 +108,27 @@ Optional:
 #### List of network requests by screen
    - Search/Feed Screen
       - (Read/GET) Query set of random locations
-        ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
+        '''ParseGeoPoint userLocation = (ParseGeoPoint) userObject.get("location");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("PlaceObject");
         query.whereNear("location", userLocation);
         query.setLimit(10);
-        query.findInBackground(new FindCallback<ParseObject>() { ... });
+        query.findInBackground(new FindCallback<ParseObject>() { ... });'''
   
       - (Create/LOCATION) Create a new favorite on search
-      ParseGeoPoint point = new ParseGeoPoint(0.5, 0.5);
+      '''ParseGeoPoint point = new ParseGeoPoint(0.5, 0.5);
       ParseQuery<ParseObject> query = ParseQuery.getQuery("PlaceObject");
-      query.wherePolygonContains("location", point);
+      query.wherePolygonContains("location", point);'''
 
       - (Delete) Delete existing favorite
-      // After this, the favoriteName field will be empty
-      myObject.remove("favoriteName");
+      '''// After this, the favoriteName field will be empty
+      myObject.remove("favoriteName");'''
       
       - (Create/LOCATION) Create new search
-      ParseQuery<ParseObject> query = ParseQuery.getQuery("Location");
-      query.whereFullText("name", "Tallahassee");
+      '''ParseQuery<ParseObject> query = ParseQuery.getQuery("Location");
+      query.whereFullText("name", "Tallahassee");'''
 
       - (Update/PUT) Update search through filter
-      ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
+      '''ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
       query.whereEqualTo("playerEmail", "dstemkoski@example.com");
       query.getFirstInBackground(new GetCallback<ParseObject>() {
         public void done(ParseObject object, ParseException e) {
@@ -138,15 +138,76 @@ Optional:
             Log.d("score", "Retrieved the object.");
           }
         }
-      });
+      });'''
 
    - Detailed View Screen
       - (Read/GET) Query all known information on Location
+      '''ParseQuery<ParseObject> query = ParseQuery.getQuery("Place");
+      query.whereWithinMiles("location", userGeoPoint, 10.0);
+      query.findInBackground(new FindCallback<ParseObject>() {
+        @Override
+        public void done(List<ParseObject> list, ParseException e) {
+          if (e == null) {
+            // List of places within 10 miles of a user's location
+          }
+        }
+      });'''
+  
       - (Create/LOCATION) Create a new favorite on search
       - (Delete) Delete existing favorite
+        '''public void done(final List<ParseObject> scoreList, ParseException e) {
+    if (e != null) {
+      // There was an error or the network wasn't available.
+      return;
+    }
+
+    // Release any objects previously pinned for this query.
+    ParseObject.unpinAllInBackground(TOP_SCORES_LABEL, scoreList, new DeleteCallback() {
+      public void done(ParseException e) {
+        if (e != null) {
+          // There was some error.
+          return;
+        }
+
+        // Add the latest results for this query to the cache.
+        ParseObject.pinAllInBackground(TOP_SCORES_LABEL, scoreList);
+      }
+    });
+  }
+});'''
    - Favorites Screen
       - (Read/GET) LocationName and location Icon
+      '''ParseQuery<ParseObject> query = ParseQuery.getQuery("Location");
+query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
+  public void done(ParseObject object, ParseException e) {
+    if (e == null) {
+      // object will be your game score
+    } else {
+      // something went wrong
+    }
+  }
+});'''
       - (Delete) Delete existing favorite
+   '''public void done(final List<ParseObject> scoreList, ParseException e) {
+    if (e != null) {
+      // There was an error or the network wasn't available.
+      return;
+    }
+
+    // Release any objects previously pinned for this query.
+    ParseObject.unpinAllInBackground(TOP_SCORES_LABEL, scoreList, new DeleteCallback() {
+      public void done(ParseException e) {
+        if (e != null) {
+          // There was some error.
+          return;
+        }
+
+        // Add the latest results for this query to the cache.
+        ParseObject.pinAllInBackground(TOP_SCORES_LABEL, scoreList);
+      }
+    });
+  }
+});'''
    - Profile Screen
       - (Read/GET) Query logged in user object
    - Recent Searches Screen 
