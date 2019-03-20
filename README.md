@@ -174,8 +174,9 @@ Optional:
         favorites = new ArrayList<FavList>();
         favorites.add(fav);
         saveFavorites(context,favorites);
-          };
-      ```
+          }
+          ```
+      
       - (Delete) Delete existing favorite
         ```java
         public void done(final List<ParseObject> scoreList, ParseException e) {
