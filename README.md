@@ -243,5 +243,3 @@ Optional:
         }
         ```
 
-   - Recent Searches Screen 
-      - (Read/GET) keyword, filters, and date and time
