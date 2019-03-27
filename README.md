@@ -79,14 +79,17 @@ Optional:
 | Property      | Type     | Description |
 | ------------- | -------- | ------------|
 | objectId      | String   | unique id for the user post (default field) |
-| favorites     | boolean  | Whether you like the location or not |
 | description   | String   | Description of location |
 | activities    | String   | Activities to do at location |
 | peakSeason    | JSONObject| Peak seasons where location is most popular|
-| price         | float    | Price of trip to location|
 | LocationBanner | File     | image of location for detail view |
 | LocationIcon  | File     | image of location for thumbnail view |
 | LocationName  | String   | Name of location |
+| LocationCountry  | String   | Name of country |
+| LocationStates  | String   | Name of State |
+| LocationCity  | String   | Name of City |
+| LocationAttraction  | String   | Name of Attraction |
+| filter        | boolean  | Whatever is used to specify the search or deter the search from using it's default settings |
 
 #### Search
 
@@ -95,7 +98,6 @@ Optional:
 | objectId      | String   | unique id for the user post (default field) |
 | favorites     | boolean  | Whether you like the location or not |
 | keyWord       | String   | Word(s) that the user typed in to make search |
-| filter        | boolean  | Whatever is used to specify the search or deter the search from using it's default settings |
 | createdAt     | DateTime | date when post is created (default field) |
 
 #### Profile
@@ -103,6 +105,8 @@ Optional:
 | Property      | Type     | Description |
 | ------------- | -------- | ------------|
 | userName      | Pointer to User| Name of user to display on profile |
+| recentSearches | String   | user inputted keywords to help with search |
+| favorites     | boolean  | Whether you like the location or not |
 
 ### Networking
 #### List of network requests by screen
@@ -239,5 +243,5 @@ Optional:
           public String getUsername(){
         return this.USERNAME;
         }
-        ```
+      ```
 
